@@ -7,6 +7,7 @@ from TiledMap import TiledMap
 # from TextboxState import TextboxState
 from NPC import NPC
 
+
 class OverworldState(GameState):
     def __init__(self, game, area, player_pos, player_dir):
         # Initialize player, NPC positions etc. here
@@ -25,7 +26,7 @@ class OverworldState(GameState):
         self.arrow_stack = []
         self.NPCs = []
         self.NPCs.append(NPC(game, game.player.area, [76,71],"D")) # take NPC info from TiledMap, right? 
-    
+
     def handle_events(self, events): 
         # clean the arrow key inputs and call self.player.handle_input at the right times, 
         # i.e. after taking a step if the button is still held down, etc.

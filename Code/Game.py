@@ -30,8 +30,8 @@ from NPC import NPC
 class Game:   ###############    MAIN CLASS!
     def __init__(self):
         self.save = save_data
-        self.W = self.save.PIXEL_SIZE*16*15 # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is 15 tiles wide)
-        self.H = self.save.PIXEL_SIZE*16*11 # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is ~11 tiles tall)
+        self.W = int(self.save.PIXEL_SIZE*16*15) # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is 15 tiles wide)
+        self.H = int(self.save.PIXEL_SIZE*16*11.25) # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is ~11 tiles tall) note: 11.25 tiles tall makes the screen ratio a perfect 3/4
         # self.screen = pygame.display.set_mode((self.W, self.H))
         # self.clock = pygame.time.Clock()
         # self.dt = .05

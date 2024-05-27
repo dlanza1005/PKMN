@@ -6,11 +6,11 @@ class SaveData:
         ## if filename is not None: call load_data() to open filename.txt and load these save items. 
         ## __init__ this class with default values for a new game!
         ## maybe if filename is None, name a new save file with the date-time in the name so that it can't overwrite an old file?
-        self.PIXEL_SIZE = 3 # control the size of the window by specifying how big the tiles are. sprites are 16x16 px. Can we use 1.5? or must it be an integer?
+        self.PIXEL_SIZE = 5 # control the size of the window by specifying how big the tiles are. sprites are 16x16 px. Can we use 1.5? or must it be an integer?
         self.TEXTBOX_BORDER = None # this should correlate with the decorative text box border. "None" will be pygame.draw.rect, others we will implement later..
-        self.FONT_SIZE = 16 # px tall if
+        self.FONT_SIZE = 10 # px tall if
         self.GAME_SPEED = .05 # seconds between frames
-        self.FONT = "pokemon_pixel_font.ttf"
+        self.FONT = "pokemon-emerald.ttf"
 
         self.PLAYER_AREA = 'pilot_town.tmx' #TiledMap('pilot_town.tmx') # specific map file that the player was in when they last saved the game
         self.PLAYER_POS = [50,50] # tile location within self.PLAYER_AREA
@@ -25,11 +25,11 @@ class SaveData:
         
     def load_data(self,filename):
         # pull these values from a text file. for now theyre hard coded.
-        self.PIXEL_SIZE = 3 
+        self.PIXEL_SIZE = 5 
         self.TEXTBOX_BORDER = None 
-        self.FONT_SIZE = 16
+        self.FONT_SIZE = 10 # PartyState=10, pause=12+, 
         self.GAME_SPEED = .05 
-        self.FONT = "pokemon_pixel_font.ttf"
+        self.FONT = "pokemon-emerald.ttf"
 
         self.PLAYER_AREA = 'pilot_town.tmx' # TiledMap('pilot_town.tmx') 
         self.PLAYER_POS = [50,50] 

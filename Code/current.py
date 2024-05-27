@@ -14,7 +14,7 @@ pygame.init()
 #import random
 from SaveData import save_data
 W = save_data.PIXEL_SIZE*16*15 # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is 15 tiles wide)
-H = save_data.PIXEL_SIZE*16*11 # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is ~11 tiles tall)
+H = int(save_data.PIXEL_SIZE*16*11.25) # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is ~11 tiles tall)
 screen = pygame.display.set_mode((W, H))
 clock = pygame.time.Clock()
 dt = .05
@@ -59,6 +59,15 @@ charmander1 = Pokemon.generate_pokemon('CHARMANDER', charmander1_instance)  # Le
 squirtle1_instance = {'Level':15}
 squirtle1 = Pokemon.generate_pokemon('SQUIRTLE', squirtle1_instance) # Level 15 Squirtle
 
+pidgey1_instance = {'Level':5}
+pidgey1 = Pokemon.generate_pokemon('PIDGEY', pidgey1_instance)  # Level 5 Bulbasaur
+
+rattata1_instance = {'Level':5}
+rattata1 = Pokemon.generate_pokemon('RATTATA', rattata1_instance)  # Level 5 Charmander
+
+pikachu1_instance = {'Level':81}
+pikachu1 = Pokemon.generate_pokemon('PIKACHU', pikachu1_instance) # Level 15 Squirtle
+
 bulbasaur2_instance = {'Level':4}
 bulbasaur2 = Pokemon.generate_pokemon('BULBASAUR', bulbasaur2_instance)  # Level 4 Bulbasaur
 
@@ -69,6 +78,9 @@ charmander2 = Pokemon.generate_pokemon('CHARMANDER', charmander2_instance)  # Le
 game.player.party.append(bulbasaur1)
 game.player.party.append(charmander1)
 game.player.party.append(squirtle1) 
+game.player.party.append(pidgey1)
+game.player.party.append(rattata1) 
+game.player.party.append(pikachu1) 
 game.TEST_OPPONENT.append(bulbasaur2)     
 game.TEST_OPPONENT.append(charmander2)
 

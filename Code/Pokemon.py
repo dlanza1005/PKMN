@@ -18,6 +18,7 @@ class Pokemon: # one instance of this class is one instance of a Pokemon.
         ## this class is finished when i can generate any level wild pokemon of any species, catch it, change it with battle or something, and load it back from save.
         # base_data: 
         # https://essentialsengine.miraheze.org/wiki/Defining_a_species
+        self.PokedexNumber = int(base_data.get("PokedexNumber")) # proper order for retrieving sprites
         self.internal_name = base_data.get('InternalName') # species
         self.name = instance_data.get('Name',self.internal_name) # nickname
         self.type1 = base_data.get('Type1')
@@ -74,9 +75,9 @@ class Pokemon: # one instance of this class is one instance of a Pokemon.
         self.pokeball = instance_data.get('pokeball','pokeball')
         self.item = instance_data.get('item', None) 
 
-        self.Front_Sprite = sprites.FrontSprites[int(self.RegionalNumbers)-1] # game.data.sprites.FrontSprites[int(self.RegionalNumbers)-1]
-        self.Back_Sprite = sprites.BackSprites[int(self.RegionalNumbers)-1] # game.data.sprites.BackSprites[int(self.RegionalNumbers)-1]
-        self.Box_Sprite = sprites.BoxSprites[int(self.RegionalNumbers)-1] # game.data.sprites.BoxSprites[int(self.RegionalNumbers)-1] 
+        self.Front_Sprite = sprites.FrontSprites[self.PokedexNumber-1]  # sprites.FrontSprites[int(self.RegionalNumbers)-1] 
+        self.Back_Sprite = sprites.BackSprites[self.PokedexNumber-1]  # sprites.BackSprites[int(self.RegionalNumbers)-1] 
+        self.Box_Sprite = sprites.BoxSprites[self.PokedexNumber-1]  # sprites.BoxSprites[int(self.RegionalNumbers)-1] 
              
 
 
