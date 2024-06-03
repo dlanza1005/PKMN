@@ -28,11 +28,15 @@ class Sprites:
         self.BoxSprites = self.load_sprites(self.Box_Spritesheet,self.Box_size)#[0]
         self.BoxSprites = [item for sublist in self.BoxSprites for item in sublist]
 
-        # self.Attack_Sprites_file = ""
+        self.Item_Icons_File = "ItemIcons/"
+        self.Item_Icon_size = (48,48)
+        self.Item_Icons = self.load_images_from_folder(self.Item_Icons_File)
 
-        self.Item_Icons_Files = "ItemIcons/"
-        # self.item_size = (48,48)
-        self.ItemIcons = self.load_images_from_folder(self.Item_Icons_Files)
+
+
+
+
+
 
 
     def load_sprites(self,spritesheet,sprite_size):

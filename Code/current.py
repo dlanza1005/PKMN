@@ -1,17 +1,14 @@
 # David Lanza
-# GPT-4 7-15-2023
+# GPT-4  
+# 7-15-2023
 # starting by asking gpt how to structure a game,
 # so i can manage the structure and "glue" and
 # asked gpt to design smaller pieces
 
-#import time
-#import csv
+
 import pygame
 pygame.init()
-#import json
-#import math
-#import pytmx
-#import random
+
 from SaveData import save_data
 W = save_data.PIXEL_SIZE*16*15 # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is 15 tiles wide)
 H = int(save_data.PIXEL_SIZE*16*11.25) # (number of screen pixels per game pixel) * (16 game pixels per tile) * (screen is ~11 tiles tall)
@@ -19,28 +16,8 @@ screen = pygame.display.set_mode((W, H))
 clock = pygame.time.Clock()
 dt = .05
 
-
-#import ARGearState
-#import BagState
-#import BattleState
 from Game import Game
-#import GameData
-#import GameState
-#import item
-#import ItemLoader
-#import Move
-#import NPC
-#import OptionsState
-#import OverworldState
-#import PartyDetailState
-#import PartyState
-#import PauseState
-#import Player
-#import PokedexState
 from Pokemon import Pokemon
-#import SaveData
-#import SaveState
-
 
 
 # initialization
@@ -50,7 +27,7 @@ game = Game()
 
 
 # Create Pokemon objects
-bulbasaur1_instance = {'Level':5}
+bulbasaur1_instance = {'Level':5,"Nickname":"Barbara"}
 bulbasaur1 = Pokemon.generate_pokemon('BULBASAUR', bulbasaur1_instance)  # Level 5 Bulbasaur
 
 charmander1_instance = {'Level':5}
@@ -74,7 +51,7 @@ bulbasaur2 = Pokemon.generate_pokemon('BULBASAUR', bulbasaur2_instance)  # Level
 charmander2_instance = {'Level':4}
 charmander2 = Pokemon.generate_pokemon('CHARMANDER', charmander2_instance)  # Level 4 Charmander
 
-# Add Bulbasaur to the player's party and Charmander to the opponent's party
+# Add pokemon to the player and opponent's parties
 game.player.party.append(bulbasaur1)
 game.player.party.append(charmander1)
 game.player.party.append(squirtle1) 
@@ -85,13 +62,73 @@ game.TEST_OPPONENT.append(bulbasaur2)
 game.TEST_OPPONENT.append(charmander2)
 
 
-#print(game.data.items['REPEL'])
+# # create items and add them to the bag
+# potion = Item.generate_item('POTION')
+# game.save.BAG.append(potion)
+# game.save.BAG.append(potion)
+# game.save.BAG.append(potion)
+# game.save.BAG.append(potion)
+# game.save.BAG.append(potion)
 
+# repel = Item.generate_item('REPEL')
+# game.save.BAG.append(repel)
 
+# honey = Item.generate_item('HONEY')
+# game.save.BAG.append(honey)
 
+# nugget = Item.generate_item('NUGGET')
+# game.save.BAG.append(nugget)
+
+# heartscale = Item.generate_item('HEARTSCALE')
+# game.save.BAG.append(heartscale)
+
+# softsand = Item.generate_item('SOFTSAND')
+# game.save.BAG.append(softsand)
+
+# oranberry = Item.generate_item('ORANBERRY')
+# game.save.BAG.append(oranberry)
+
+# pokeball = Item.generate_item('POKEBALL')
+# game.save.BAG.append(pokeball) 
+# game.save.BAG.append(pokeball)
+# game.save.BAG.append(pokeball) 
+# game.save.BAG.append(pokeball)
+# game.save.BAG.append(pokeball)
+
+# yellowshard = Item.generate_item('YELLOWSHARD')
+# game.save.BAG.append(yellowshard)
+
+# redshard = Item.generate_item('REDSHARD')
+# game.save.BAG.append(redshard)
+
+# blueshard = Item.generate_item('BLUESHARD')
+# game.save.BAG.append(blueshard)
+
+game.save.BAG.append("POTION")
+game.save.BAG.append("POTION")
+game.save.BAG.append("POTION")
+game.save.BAG.append("POTION")
+game.save.BAG.append("POTION")
+game.save.BAG.append("REPEL")
+game.save.BAG.append("HONEY")
+game.save.BAG.append("NUGGET")
+game.save.BAG.append("HEARTSCALE")
+game.save.BAG.append("SOFTSAND")
+game.save.BAG.append("ORANBERRY")
+game.save.BAG.append("POKEBALL")
+game.save.BAG.append("POKEBALL")
+game.save.BAG.append("POKEBALL")
+game.save.BAG.append("POKEBALL")
+game.save.BAG.append("POKEBALL")
+game.save.BAG.append("YELLOWSHARD")
+game.save.BAG.append("REDSHARD")
+game.save.BAG.append("BLUESHARD")
+game.save.BAG.append("GREENSHARD")
+game.save.BAG.append("SUPERPOTION")
 
 game.run(screen,dt)
 pygame.quit()
+
 
 ##### DO LIST #####
 # zoom: change all graphics sizes and locations to scale with ZOOM
@@ -102,3 +139,7 @@ pygame.quit()
 #   move: gamedata class function to open file and populate moves dict, class to create move instance from this and PP/PP instance data
 #   types: gamedata class function to open file and populate types dict, and also associate the colored TYPE image with it. that should be enough structure to use it in the game. 
 # keep graphics in a graphics folder, keep PBS in a PBS folder, keep maps in a map folder, etc.
+
+# add a way to load the game from a save file, and save the game to a save file. this will be the first step in creating a save/load system.
+# remove garbage comments and code. keep the code clean and organized.
+# use copilot to clean up PartyState

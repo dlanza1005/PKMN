@@ -63,25 +63,25 @@ class BattleState(GameState):
         # Add actions to action_queue based on player choices
         # ...
         
-        # Sort the action queue
-        def sort_action_queue(action_queue):
-            # Handle switches, Pursuit, rotations first
-            # Handle Mega Evolution flag
-            # Sort by move priority
-            action_queue.sort(key=lambda x: x.move.priority, reverse=True)
-            # Handle Quick Claw, Quick Draw, Custap Berry
-            # Handle Full Incense, Lagging Tail, Stall
-            # Handle Mycelium Might
-            # Sort by Speed Stat (consider Trick Room)
-            if trick_room_effect:
-                action_queue.sort(key=lambda x: x.pokemon.speed)
-            else:
-                action_queue.sort(key=lambda x: x.pokemon.speed, reverse=True)
-            # Handle ties
-        # Execute actions in the sorted action_queue
-        def execute_actions(action_queue):
-            for action in action_queue:
-                action.execute()
+    # Sort the action queue
+    def sort_action_queue(action_queue):
+        # Handle switches, Pursuit, rotations first
+        # Handle Mega Evolution flag
+        # Sort by move priority
+        action_queue.sort(key=lambda x: x.move.priority, reverse=True)
+        # Handle Quick Claw, Quick Draw, Custap Berry
+        # Handle Full Incense, Lagging Tail, Stall
+        # Handle Mycelium Might
+        # Sort by Speed Stat (consider Trick Room)
+        if trick_room_effect:
+            action_queue.sort(key=lambda x: x.pokemon.speed)
+        else:
+            action_queue.sort(key=lambda x: x.pokemon.speed, reverse=True)
+        # Handle ties
+    # Execute actions in the sorted action_queue
+    def execute_actions(action_queue):
+        for action in action_queue:
+            action.execute()
 
     ########################################
     
@@ -90,7 +90,10 @@ class BattleState(GameState):
 
     def start_battle(self):
         pass # maybe eliminate (self) here? load pokemon, reset battle stats,
-             # instantiate health bars, sprites, textbox,... print text, animate pokemon, etc.
+             # fade out. load bg for environment, load opponent instances
+             # instantiate health bars, sprites, textbox,... print text, animate self and bg and opponent sliding across the screen. animate pokeballs. wait for button press.
+             # send out pokemon. slide pokeballs out, slide health bars in. 
+             # hand control to "state #3" fight/pkmn/bag/run
     
 
     def calculate_damage(self, attacking_pokemon, defending_pokemon, move):

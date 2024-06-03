@@ -6,32 +6,13 @@ import csv
 
 class GameData:
     def __init__(self):
-        self.pokemon_data = self.load_pokemon_data('PBS/pokemon.txt')
-        self.move_data = self.load_move_data('PBS/moves.txt')
-        self.abilities_data = self.load_abilities_data('PBS/abilities.txt')
-        self.item_data = 0
-        self.items = self.load_item_data('PBS/items.txt')
-        self.types = self.load_types_data('PBS/types.txt')
-        
-    # def load_pokemon_data(self, filename):
-    #     pokemon_data = {'by_number': {}, 'by_name': {}}
-    #     with open(filename) as file:
-    #         for line in file:
-    #             if line.strip() and line[0] != '#':  # Ignore blank lines and comments
-    #                 if line.startswith('['):  # New Pokemon entry
-    #                     PokedexNumber = line.strip('[]\n')
-    #                     current_pokemon_data = {}
-    #                     pokemon_data['by_number'][PokedexNumber] = current_pokemon_data
-    #                 else:  # Data for current Pokemon
-    #                     key, value = map(str.strip, line.split('='))
-    #                     current_pokemon_data[key] = value
-    #                     if key == 'InternalName':
-    #                         pokemon_data['by_name'][value] = current_pokemon_data
-    #     return pokemon_data    
+        self.pokemon_data       = self.load_pokemon_data('PBS/pokemon.txt')
+        self.move_data          = self.load_move_data('PBS/moves.txt')
+        self.abilities_data     = self.load_abilities_data('PBS/abilities.txt')
+        self.items              = self.load_item_data('PBS/items.txt')
+        self.types              = self.load_types_data('PBS/types.txt')
     
     def load_pokemon_data(self, filename): 
-        # i asked GPT4o to add PokedexNumber to this list. it was just 1 line changed but 
-        # i still kept the old function commented out, above this one.
         pokemon_data = {'by_number': {}, 'by_name': {}}
         with open(filename) as file:
             for line in file:
@@ -90,7 +71,7 @@ class GameData:
                 internal_name = row[1]
                 items[internal_name] = {
                     "item_id": row[0],
-                    "internal-name": row[1],
+                    "internal_name": row[1],
                     "display_name": row[2],
                     "plural_name": row[3],
                     "pocket_id": row[4],

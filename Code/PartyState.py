@@ -54,19 +54,19 @@ class PartyState(GameState):
         self.pkmnX = 2*self.S
         self.pkmnY = 8*self.S
 
-        self.p1_hp = [32*self.S,126*self.S]    # 12, 62
-        self.p2_hp = [365*self.S,47*self.S]    # 141, 15
-        self.p3_hp = [365*self.S,107*self.S]   # 141, 15
-        self.p4_hp = [365*self.S,167*self.S]   # 
-        self.p5_hp = [365*self.S,227*self.S]   #
-        self.p6_hp = [365*self.S,287*self.S]   #
+        self.p1_hp_img = [32*self.S,126*self.S]    # 12, 62
+        self.p2_hp_img = [365*self.S,47*self.S]    # 141, 15
+        self.p3_hp_img = [365*self.S,107*self.S]   # 141, 15
+        self.p4_hp_img = [365*self.S,167*self.S]   # 
+        self.p5_hp_img = [365*self.S,227*self.S]   #
+        self.p6_hp_img = [365*self.S,287*self.S]   #
 
-        self.p1_health = [90*self.S,137*self.S] #
-        self.p2_health = [430*self.S,57*self.S]
-        self.p3_health = [430*self.S,117*self.S]
-        self.p4_health = [430*self.S,177*self.S]
-        self.p5_health = [430*self.S,237*self.S]
-        self.p6_health = [430*self.S,297*self.S]
+        self.p1_hp_text = [90*self.S,137*self.S] #
+        self.p2_hp_text = [430*self.S,57*self.S]
+        self.p3_hp_text = [430*self.S,117*self.S]
+        self.p4_hp_text = [430*self.S,177*self.S]
+        self.p5_hp_text = [430*self.S,237*self.S]
+        self.p6_hp_text = [430*self.S,297*self.S]
 
         self.p1_bar = [64*self.S, 130*self.S] #(104,193,150,9)
         self.p2_bar = [397*self.S, 51*self.S]
@@ -143,7 +143,7 @@ class PartyState(GameState):
                         self.game.pop_state() 
                     else:
                         #return PartyDetailState(game, self.selected)  # Enter party detail state for this Pokemon
-                        self.game.push_state("PartyDetailState",self.selected)
+                        self.game.push_state("PartyDetailState",[self.game,self.selected, 0])
     
         return None
     
@@ -160,7 +160,7 @@ class PartyState(GameState):
             else:
                 screen.blit(self.slot1_bg, (self.p1_bg[0], self.p1_bg[1]))
                 screen.blit(self.icon_ball, (self.p1_ball[0], self.p1_ball[1])) #  10, 70
-            screen.blit(self.healthbar, (self.p1_hp[0], self.p1_hp[1]))  # needs to be linked to the pokemon!! this is just location   54, 187
+            screen.blit(self.healthbar, (self.p1_hp_img[0], self.p1_hp_img[1]))  # needs to be linked to the pokemon!! this is just location   54, 187
             pygame.draw.rect(screen,[60,200,50],(self.p1_bar[0],self.p1_bar[1],96*self.S,7*self.S))
             pygame.draw.rect(screen,[140,220,150],(self.p1_bar[0],self.p1_bar[1],96*self.S,4*self.S))       
             slot_name1a = self.game.font.render(self.party[0].internal_name, True, [120,120,120])
@@ -173,8 +173,8 @@ class PartyState(GameState):
             screen.blit(slot_lv1b, (self.p1_lv[0],self.p1_lv[1]))  
             slot_hp1a = self.game.font.render(str(self.party[0].current_HP)+"/ "+str(self.party[0].totalhp), True, [120,120,120])
             slot_hp1b = self.game.font.render(str(self.party[0].current_HP)+"/ "+str(self.party[0].totalhp), True, [230,230,230])
-            screen.blit(slot_hp1a, (self.p1_health[0]+self.S*1.5,self.p1_health[1]+self.S*1.5))
-            screen.blit(slot_hp1b, (self.p1_health[0],self.p1_health[1]))
+            screen.blit(slot_hp1a, (self.p1_hp_text[0]+self.S*1.5,self.p1_hp_text[1]+self.S*1.5))
+            screen.blit(slot_hp1b, (self.p1_hp_text[0],self.p1_hp_text[1]))
             screen.blit(self.slot_icons[0], (self.p1_ball[0]+5, self.p1_ball[1]+(25*self.S))) # 1            50,100
             
         elif slot==1:
@@ -184,7 +184,7 @@ class PartyState(GameState):
             else:
                 screen.blit(self.slots_bg, (self.p2_bg[0], self.p2_bg[1]))
                 screen.blit(self.icon_ball, (self.p2_ball[0], self.p2_ball[1]))
-            screen.blit(self.healthbar, (self.p2_hp[0], self.p2_hp[1])) # needs to be linked to the pokemon!! this is just location
+            screen.blit(self.healthbar, (self.p2_hp_img[0], self.p2_hp_img[1])) # needs to be linked to the pokemon!! this is just location
             pygame.draw.rect(screen,[60,200,50],(self.p2_bar[0],self.p2_bar[1],96*self.S,7*self.S))
             pygame.draw.rect(screen,[140,220,150],(self.p2_bar[0],self.p2_bar[1],96*self.S,4*self.S))  
             # slot_name2 = self.game.font.render("name2", True, [230,230,230])
@@ -199,8 +199,8 @@ class PartyState(GameState):
             screen.blit(slot_lv2b, (self.p2_lv[0],self.p2_lv[1]))    
             slot_hp2a = self.game.font.render(str(self.party[1].current_HP)+"/ "+str(self.party[1].totalhp), True, [120,120,120])
             slot_hp2b = self.game.font.render(str(self.party[1].current_HP)+"/ "+str(self.party[1].totalhp), True, [230,230,230])
-            screen.blit(slot_hp2a, (self.p2_health[0]+self.S*1.5,self.p2_health[1]+self.S*1.5))
-            screen.blit(slot_hp2b, (self.p2_health[0],self.p2_health[1]))
+            screen.blit(slot_hp2a, (self.p2_hp_text[0]+self.S*1.5,self.p2_hp_text[1]+self.S*1.5))
+            screen.blit(slot_hp2b, (self.p2_hp_text[0],self.p2_hp_text[1]))
             screen.blit(self.slot_icons[1], (self.p2_ball[0]+self.pkmnX, self.p2_ball[1]+self.pkmnY)) # 2
             
         elif slot==2:
@@ -210,7 +210,7 @@ class PartyState(GameState):
             else:
                 screen.blit(self.slots_bg, (self.p3_bg[0], self.p3_bg[1]))
                 screen.blit(self.icon_ball, (self.p3_ball[0], self.p3_ball[1]))
-            screen.blit(self.healthbar, (self.p3_hp[0], self.p3_hp[1])) # needs to be linked to the pokemon!! this is just location
+            screen.blit(self.healthbar, (self.p3_hp_img[0], self.p3_hp_img[1])) # needs to be linked to the pokemon!! this is just location
             pygame.draw.rect(screen,[60,200,50],(self.p3_bar[0],self.p3_bar[1],96*self.S,7*self.S))
             pygame.draw.rect(screen,[140,220,150],(self.p3_bar[0],self.p3_bar[1],96*self.S,4*self.S))    
             #slot_name3 = self.game.font.render("name3", True, [230,230,230])
@@ -225,8 +225,8 @@ class PartyState(GameState):
             screen.blit(slot_lv3b, (self.p3_lv[0],self.p3_lv[1]))           
             slot_hp3a = self.game.font.render(str(self.party[2].current_HP)+"/ "+str(self.party[2].totalhp), True, [120,120,120])
             slot_hp3b = self.game.font.render(str(self.party[2].current_HP)+"/ "+str(self.party[2].totalhp), True, [230,230,230])
-            screen.blit(slot_hp3a, (self.p3_health[0]+self.S*1.5,self.p3_health[1]+self.S*1.5))
-            screen.blit(slot_hp3b, (self.p3_health[0],self.p3_health[1]))
+            screen.blit(slot_hp3a, (self.p3_hp_text[0]+self.S*1.5,self.p3_hp_text[1]+self.S*1.5))
+            screen.blit(slot_hp3b, (self.p3_hp_text[0],self.p3_hp_text[1]))
             screen.blit(self.slot_icons[2], (self.p3_ball[0]+self.pkmnX, self.p3_ball[1]+self.pkmnY)) # 3
             
         elif slot==3:
@@ -236,7 +236,7 @@ class PartyState(GameState):
             else:
                 screen.blit(self.slots_bg, (self.p4_bg[0], self.p4_bg[1]))
                 screen.blit(self.icon_ball, (self.p4_ball[0], self.p4_ball[1]))
-            screen.blit(self.healthbar, (self.p4_hp[0], self.p4_hp[1])) # needs to be linked to the pokemon!! this is just location
+            screen.blit(self.healthbar, (self.p4_hp_img[0], self.p4_hp_img[1])) # needs to be linked to the pokemon!! this is just location
             pygame.draw.rect(screen,[60,200,50],(self.p4_bar[0],self.p4_bar[1],96*self.S,7*self.S))
             pygame.draw.rect(screen,[140,220,150],(self.p4_bar[0],self.p4_bar[1],96*self.S,4*self.S))    
             slot_name4a = self.game.font.render(self.party[3].internal_name, True, [120,120,120])
@@ -249,8 +249,8 @@ class PartyState(GameState):
             screen.blit(slot_lv4b, (self.p4_lv[0],self.p4_lv[1]))                 
             slot_hp4a = self.game.font.render(str(self.party[3].current_HP)+"/ "+str(self.party[3].totalhp), True, [120,120,120])
             slot_hp4b = self.game.font.render(str(self.party[3].current_HP)+"/ "+str(self.party[3].totalhp), True, [230,230,230])
-            screen.blit(slot_hp4a, (self.p4_health[0]+self.S*1.5,self.p4_health[1]+self.S*1.5))
-            screen.blit(slot_hp4b, (self.p4_health[0],self.p4_health[1]))
+            screen.blit(slot_hp4a, (self.p4_hp_text[0]+self.S*1.5,self.p4_hp_text[1]+self.S*1.5))
+            screen.blit(slot_hp4b, (self.p4_hp_text[0],self.p4_hp_text[1]))
             screen.blit(self.slot_icons[3], (self.p4_ball[0]+self.pkmnX, self.p4_ball[1]+self.pkmnY)) # 4
             
         elif slot==4:
@@ -260,7 +260,7 @@ class PartyState(GameState):
             else:
                 screen.blit(self.slots_bg, (self.p5_bg[0], self.p5_bg[1]))
                 screen.blit(self.icon_ball, (self.p5_ball[0], self.p5_ball[1]))
-            screen.blit(self.healthbar, (self.p5_hp[0], self.p5_hp[1])) # needs to be linked to the pokemon!! this is just location
+            screen.blit(self.healthbar, (self.p5_hp_img[0], self.p5_hp_img[1])) # needs to be linked to the pokemon!! this is just location
             pygame.draw.rect(screen,[60,200,50],(self.p5_bar[0],self.p5_bar[1],96*self.S,7*self.S))
             pygame.draw.rect(screen,[140,220,150],(self.p5_bar[0],self.p5_bar[1],96*self.S,4*self.S))     
             slot_name5a = self.game.font.render(self.party[4].internal_name, True, [120,120,120])
@@ -273,8 +273,8 @@ class PartyState(GameState):
             screen.blit(slot_lv5b, (self.p5_lv[0],self.p5_lv[1]))           
             slot_hp5a = self.game.font.render(str(self.party[4].current_HP)+"/ "+str(self.party[4].totalhp), True, [120,120,120])
             slot_hp5b = self.game.font.render(str(self.party[4].current_HP)+"/ "+str(self.party[4].totalhp), True, [230,230,230])
-            screen.blit(slot_hp5a, (self.p5_health[0]+self.S*1.5,self.p5_health[1]+self.S*1.5))
-            screen.blit(slot_hp5b, (self.p5_health[0],self.p5_health[1]))
+            screen.blit(slot_hp5a, (self.p5_hp_text[0]+self.S*1.5,self.p5_hp_text[1]+self.S*1.5))
+            screen.blit(slot_hp5b, (self.p5_hp_text[0],self.p5_hp_text[1]))
             screen.blit(self.slot_icons[4], (self.p5_ball[0]+self.pkmnX, self.p5_ball[1]+self.pkmnY)) # 5
             
         elif slot==5:
@@ -284,7 +284,7 @@ class PartyState(GameState):
             else:
                 screen.blit(self.slots_bg, (self.p6_bg[0], self.p6_bg[1]))
                 screen.blit(self.icon_ball, (self.p6_ball[0], self.p6_ball[1]))
-            screen.blit(self.healthbar, (self.p6_hp[0], self.p6_hp[1])) # needs to be linked to the pokemon!! this is just location
+            screen.blit(self.healthbar, (self.p6_hp_img[0], self.p6_hp_img[1])) # needs to be linked to the pokemon!! this is just location
             pygame.draw.rect(screen,[60,200,50],(self.p6_bar[0],self.p6_bar[1],96*self.S,7*self.S))
             pygame.draw.rect(screen,[140,220,150],(self.p6_bar[0],self.p6_bar[1],96*self.S,4*self.S))   
             slot_name6a = self.game.font.render(self.party[5].internal_name, True, [120,120,120])
@@ -297,8 +297,8 @@ class PartyState(GameState):
             screen.blit(slot_lv6b, (self.p6_lv[0],self.p6_lv[1]))           
             slot_hp6a = self.game.font.render(str(self.party[5].current_HP)+"/ "+str(self.party[5].totalhp), True, [120,120,120])
             slot_hp6b = self.game.font.render(str(self.party[5].current_HP)+"/ "+str(self.party[5].totalhp), True, [230,230,230])
-            screen.blit(slot_hp6a, (self.p6_health[0]+self.S*1.5,self.p6_health[1]+self.S*1.5))
-            screen.blit(slot_hp6b, (self.p6_health[0],self.p6_health[1])) 
+            screen.blit(slot_hp6a, (self.p6_hp_text[0]+self.S*1.5,self.p6_hp_text[1]+self.S*1.5))
+            screen.blit(slot_hp6b, (self.p6_hp_text[0],self.p6_hp_text[1])) 
             screen.blit(self.slot_icons[5], (self.p6_ball[0]+self.pkmnX, self.p6_ball[1]+self.pkmnY)) # 6   
             
         elif slot==6:

@@ -1,12 +1,18 @@
 #from TiledMap import TiledMap
 #from Sprites import sprites
 
+
+
+
+
+
+
 class SaveData:
     def __init__(self, filename = None):
         ## if filename is not None: call load_data() to open filename.txt and load these save items. 
         ## __init__ this class with default values for a new game!
         ## maybe if filename is None, name a new save file with the date-time in the name so that it can't overwrite an old file?
-        self.PIXEL_SIZE = 5 # control the size of the window by specifying how big the tiles are. sprites are 16x16 px. Can we use 1.5? or must it be an integer?
+        self.PIXEL_SIZE = 4 # control the size of the window by specifying how big the tiles are. sprites are 16x16 px. Can we use 1.5? or must it be an integer?
         self.TEXTBOX_BORDER = None # this should correlate with the decorative text box border. "None" will be pygame.draw.rect, others we will implement later..
         self.FONT_SIZE = 10 # px tall if
         self.GAME_SPEED = .05 # seconds between frames
@@ -25,7 +31,7 @@ class SaveData:
         
     def load_data(self,filename):
         # pull these values from a text file. for now theyre hard coded.
-        self.PIXEL_SIZE = 5 
+        self.PIXEL_SIZE = 4 
         self.TEXTBOX_BORDER = None 
         self.FONT_SIZE = 10 # PartyState=10, pause=12+, 
         self.GAME_SPEED = .05 

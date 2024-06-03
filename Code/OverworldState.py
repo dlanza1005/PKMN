@@ -55,7 +55,7 @@ class OverworldState(GameState):
                     self.game.push_state("PauseState",None)
                 elif event.key == pygame.K_t:
                     msg = "This is a public service announcement, this is only a test. Peter Piper Picked a Peck of Pickled Peppers. Oh Potatoes and Molasses!!"
-                    self.game.push_state("TextboxState", [msg, 800, 600, self.game.font])
+                    self.game.push_state("TextboxState", msg)
                 else:
                     pass
         if keys[pygame.K_DOWN] and self.game.player.direction=="D":

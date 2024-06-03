@@ -38,6 +38,7 @@ class Game:   ###############    MAIN CLASS!
 
         self.font_size = self.save.FONT_SIZE*self.save.PIXEL_SIZE
         self.font = pygame.font.Font(self.save.FONT, self.font_size) # make it self.save.FONT_SIZE * self.save.PIXEL_SIZE ... but where to store the variables so that they update when the player changes the settings?
+        
         self.running = True
         self.state_stack = []
         
@@ -61,6 +62,14 @@ class Game:   ###############    MAIN CLASS!
         #return new_pokemon    
         
 
+    def get_click_coordinates(self, event):
+        x = event.pos[0]
+        y = event.pos[1]
+        print(f"Clicked at coordinates: ({x}, {y})")
+    
+
+
+
     def push_state(self, state, args):
         #self.state_stack.append(state)
         if state == "TitleScreenState":
@@ -72,7 +81,7 @@ class Game:   ###############    MAIN CLASS!
         elif state == "PartyState":
             self.state_stack.append(PartyState(self))
         elif state == "PartyDetailState":
-            self.state_stack.append(PartyDetailState(args))
+            self.state_stack.append(PartyDetailState(args[0],args[1],args[2]))
         elif state == "PokedexState":
             self.state_stack.append(PokedexState(self))
         elif state == "ARGearState":
@@ -106,29 +115,9 @@ class Game:   ###############    MAIN CLASS!
             for event in events:
                 if event.type == pygame.QUIT:
                     self.running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    self.get_click_coordinates(event)
             state.handle_events(events)
-            # if next_state is not None:  # if state wants to switch to a new state 
-            #     if next_state == "TitleScreenState":
-            #         self.push_state(TitleScreenState())
-            #     elif next_state == "OverworldState":
-            #         self.push_state(OverworldState()) # area, player_pos, player_dir):
-            #     elif next_state == "PauseState":
-            #         self.push_state(PauseState())
-            #     elif next_state == "PartyState":
-            #         self.push_state(PartyState())
-            #     elif next_state == "PartyDetailState":
-            #         self.push_state(PartyDetailState())
-            #     elif next_state == "PokedexState":
-            #         self.push_state(PokedexState())
-            #     elif next_state == "ARGearState":
-            #         self.push_state(ARGearState())
-            #     elif next_state == "BagState":
-            #         self.push_state(BagState())
-            #     elif next_state == "TextboxState":
-            #         self.push_state(TextboxState())
-            #     elif next_state == "PopState":
-            #         self.push_state(PopState())
-                #next_state = None # is this right to put here?
             state.update()
             [state.draw(screen) for state in self.state_stack] # trying to draw the overworld when in the pause screen.
             pygame.display.flip()

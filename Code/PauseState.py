@@ -6,7 +6,7 @@ from GameState import GameState
 class PauseState(GameState):
     def __init__(self, game):
         self.game=game
-        print("Pause State!")
+        self.PauseFont = pygame.font.Font(self.game.save.FONT, int(self.game.font_size*1.25))
         self.option_selected = 0
         self.options = ["POKEDEX","POKEMON","BAG","AR GEAR","SAVE","OPTIONS","QUIT"]
         self.colors = [(50,50,50),(255,255,255)] # option colors
@@ -23,22 +23,22 @@ class PauseState(GameState):
                 elif event.key == pygame.K_UP:
                     self.option_selected = (self.option_selected - 1) % len(self.options)  # Cycle through options
                 elif event.key == pygame.K_z:
-                    self.game.pop_state() #          switch_state(self, state, args)
+                    self.game.pop_state() #          push_state(self, state, args)
                 elif event.key == pygame.K_x:
                     if self.option_selected == 0:
-                        self.game.switch_state("PokedexState", None)  #        self.game.switch_state(state, args)
+                        self.game.push_state("PokedexState", None)  #        self.game.push_state(state, args)
                     elif self.option_selected == 1:
-                        self.game.switch_state("PartyState", None) # return PartyState(game)
+                        self.game.push_state("PartyState", None) # return PartyState(game)
                     elif self.option_selected == 2:
-                        self.game.switch_state("BagState", None)
+                        self.game.push_state("BagState", None)
                     elif self.option_selected == 3:
-                        self.game.switch_state("ARGearState", None)#return ARGearState(game)
+                        self.game.push_state("ARGearState", None)#return ARGearState(game)
                     elif self.option_selected == 4:
-                        self.game.switch_state("SaveState", None)#return SaveState(game)
+                        self.game.push_state("SaveState", None)#return SaveState(game)
                     elif self.option_selected == 5:
-                        self.game.switch_state("OptionsState", None)# return OptionsState(game)
+                        self.game.push_state("OptionsState", None)# return OptionsState(game)
                     elif self.option_selected == 6:
-                        self.game.switch_state("QuitState", None)#return QuitState(game)                    
+                        self.game.push_state("QuitState", None)#return QuitState(game)                    
                     else:
                         return None  # Otherwise, do nothing
         return None
@@ -57,7 +57,7 @@ class PauseState(GameState):
         menu = [None, None, None, None, None, None, None]
         for i in range(0,len(self.options)):
             if self.option_selected == i:
-                menu[i] = self.game.font.render(self.options[i], True, self.colors[1])
+                menu[i] = self.PauseFont.render(self.options[i], True, self.colors[1])
             else:
-                menu[i] = self.game.font.render(self.options[i], True, self.colors[0])
+                menu[i] = self.PauseFont.render(self.options[i], True, self.colors[0])
             screen.blit(menu[i], (self.X+self.Y, 2*self.Y+int(i*self.H/7)))     # (80*i))) # self.H/7

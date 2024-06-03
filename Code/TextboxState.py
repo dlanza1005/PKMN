@@ -1,14 +1,24 @@
 from GameState import GameState
 import pygame
+from SaveData import save_data
+import pygame.font
+
+# this should:
+# take the sprite that is loaded from the save file and be able to make it into a textbox of any size
+# Textbox(type,message)
+#   *should this include the choices in the message with special syntax?
+#   *this should return a value if there is a choice. whatever function created the textbox is going
+#       to want the response.
+#   *type: regular 2 line text, upper right choice box, fight/pkmn/bag/run box and the other one on that screeen, fight state boxes, borderless text
 
 
 class TextboxState(GameState):
-    def __init__(self, game, message, font):
+    def __init__(self, game, message):
         self.message = message
         self.game = game
-        self.font = font        
+        self.font = pygame.font.Font(save_data.FONT, save_data.FONT_SIZE*save_data.PIXEL_SIZE*2)  
         self.border = 40
-        self.lines = self.split_message_into_lines(message, font)
+        self.lines = self.split_message_into_lines(self.message, self.font)
         #print(self.lines)
         self.current_line = 0
         self.text_typing_index = 0
@@ -19,8 +29,8 @@ class TextboxState(GameState):
         self.fin_flag = False
         self.border_style = pygame.transform.scale(pygame.image.load('choice 1.png'), (int(48*1.5625), int(48*1.5625)))
 
-        self.box_height = self.game.screen_height // 3
-        self.box_rect = pygame.Rect(0, self.game.screen_height - self.box_height, self.game.screen_width, self.box_height)
+        self.box_height = self.game.H // 3
+        self.box_rect = pygame.Rect(0, self.game.H - self.box_height, self.game.W, self.box_height-save_data.PIXEL_SIZE)
         
     def draw_box_rect(self, screen, rect):
         # The assumption is that the border's width and height are both 10 pixels
@@ -61,19 +71,38 @@ class TextboxState(GameState):
             for j in range(BORDER_SIZE, h - BORDER_SIZE, center.get_height()):
                 screen.blit(center, (x + i, y + j))
 
+
     def split_message_into_lines(self, message, font):
         # Split the message into words and then reconstruct the lines based on the font width
         words = message.split(" ")
         lines = []
         current_line = []
         for word in words:
-            if font.size(' '.join(current_line + [word]))[0] > (self.screen_width-self.border*2):
+            if font.size(' '.join(current_line + [word]))[0] > (self.game.W-self.border*2):
                 lines.append(' '.join(current_line))
                 current_line = [word]
             else:
                 current_line.append(word)
         lines.append(' '.join(current_line))
         return lines
+    
+    # def split_message_into_lines(self, message, font):
+    #     # Convert the message to a string if it's a list
+    #     if isinstance(message, list):
+    #         message = ' '.join(message)
+        
+    #     # Split the message into words and then reconstruct the lines based on the font width
+    #     words = message.split(" ")
+    #     lines = []
+    #     current_line = []
+    #     for word in words:
+    #         if font.size(' '.join(current_line + [word]))[0] > (self.screen_width-self.border*2):
+    #             lines.append(' '.join(current_line))
+    #             current_line = [word]
+    #         else:
+    #             current_line.append(word)
+    #     lines.append(' '.join(current_line))
+    #     return lines
     
 
     def handle_events(self, events):
@@ -90,7 +119,7 @@ class TextboxState(GameState):
             # else: self.is_typing_fast = False
 
     def is_text_finished_typing(self):
-        return self.text_typing_index >= len(self.lines[max(self.current_line-1,0)])
+        return self.current_line >= len(self.lines) or self.text_typing_index >= len(self.lines[self.current_line])
 
     def advance_to_next_line(self):
         self.text_typing_index = 0
@@ -98,7 +127,7 @@ class TextboxState(GameState):
         if self.current_line >= len(self.lines):
             # You could pop this state from the stack to return to the underlying state
             #self.fin_flag = True
-            game.pop_state()
+            self.game.pop_state()
             pass
 
     #def update(self): # , dt) old
@@ -127,8 +156,8 @@ class TextboxState(GameState):
         self.draw_box_rect(screen, self.box_rect)
         # Compute the starting position for the text
         x = self.border
-        y1 = self.screen_height - self.box_height + self.border
-        y2 = y1 + int(self.screen_height/6)-self.border/2
+        y1 = self.game.H - self.box_height + self.border
+        y2 = y1 + int(self.game.H/6)-self.border/2
 
         # Display the current line
         
