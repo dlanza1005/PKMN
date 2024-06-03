@@ -9,7 +9,7 @@ class NPC:
         self.direction = direction
         self.PX = self.game.save.PIXEL_SIZE
         self.area = area   # map
-        self.speed = .25*self.PX
+        self.speed = .25
         self.moving = False
         self.walk = ["D","D","D","D","L","L","U","U","U","U","R","R"]
         self.walk_count = 0
